@@ -29,27 +29,37 @@ class UserResource extends Resource
             ->schema([
                 Forms\Components\Select::make('laboratory_id')
                     ->relationship("laboratory","name")
+                    ->label("Laboratório")
                     ->required()
                     ->hidden(Filament::auth()->user()->hasRole("professor")),
 
                 Forms\Components\TextInput::make('register')
+                    ->label("Matricula/Siape")
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('name')
+                    ->label("Nome")
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                    ->label("Email")
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
+                    ->label("Senha")
                     ->required()
                     ->password()
                     ->maxLength(255),
                 Forms\Components\Radio::make('type')
+                    ->label("Tipo de usuário")
                     ->options([
                         'A' => 'Professor',
                         'M' => 'Monitor',
-                    ])->default('A'),
+                    ]) ->descriptions([
+                        'A' => 'Ver audições, relatórios, gerenciar visitas e visitantes',
+                        'M' => 'gerenciar visitas e visitantes'
+                    ])
+                    ->default('A'),
             ]);
     }
 
@@ -71,9 +81,13 @@ class UserResource extends Resource
         }
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('laboratory.name'),
-                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label("Nome"),
+
+                Tables\Columns\TextColumn::make('laboratory.name')
+                    ->label("Laboratório"),
+                Tables\Columns\TextColumn::make('email')
+                    ->label("Email"),
             ])
 
             ->actions([

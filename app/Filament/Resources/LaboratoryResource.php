@@ -42,13 +42,16 @@ class LaboratoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('teacher'),
-                Tables\Columns\TextColumn::make('classroom'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label("Nome"),
+                Tables\Columns\TextColumn::make('teacher')
+                    ->label("Coordenador"),
+                Tables\Columns\TextColumn::make('classroom')
+                    ->label("Sala"),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime("d/m/Y H:i","America/Santarem")
+                    ->label("Criado"),
+
             ])
             ->filters([
                 //

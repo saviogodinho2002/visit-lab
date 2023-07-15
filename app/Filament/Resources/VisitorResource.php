@@ -26,12 +26,15 @@ class VisitorResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label("Nome")
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('register')
+                    ->label("Matricula/Siape")
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('team')
+                    ->label("Turma")
                     ->required()
                     ->maxLength(255),
             ]);
@@ -41,13 +44,17 @@ class VisitorResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('register'),
-                Tables\Columns\TextColumn::make('team'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label("Nome"),
+                Tables\Columns\TextColumn::make('register')
+                    ->label("Matricula/Siape"),
+                Tables\Columns\TextColumn::make('team')
+                    ->label("Turma"),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->label("Criado")
+                    ->dateTime("d/m/Y H:i","America/Santarem")
+                ,
+
             ])
             ->filters([
                 //

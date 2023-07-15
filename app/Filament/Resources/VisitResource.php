@@ -29,6 +29,7 @@ class VisitResource extends Resource
             ->schema([
                 Forms\Components\Select::make('visitor_id')
                     ->relationship("visitor","name")
+                    ->label("Visitante")
                     ->required(),
                 /*Forms\Components\TextInput::make('laboratory_id')
                     ->required(),
@@ -63,8 +64,8 @@ class VisitResource extends Resource
                     ->label("Monitor presente"),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label("Data - hora")
-                    ->timezone("America/Santarem")
-                    ->dateTime(),
+                    ->dateTime("d/m/Y H:i","America/Santarem")
+                ,
             ])
             ->actions([
 
