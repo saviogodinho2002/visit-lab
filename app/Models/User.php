@@ -13,13 +13,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser,Auditable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
     use SoftDeletes;
+    use \OwenIt\Auditing\Auditable;
 
     /**
      * The attributes that are mass assignable.
