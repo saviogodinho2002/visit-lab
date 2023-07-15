@@ -20,6 +20,7 @@ class CreateUser extends CreateRecord
             $data["laboratory_id"] = Filament::auth()->user()->laboratory_id;
         }
 
+
         return $data;
     }
     protected function afterCreate(): void
@@ -33,5 +34,6 @@ class CreateUser extends CreateRecord
         }
 
     }
+
 
 }

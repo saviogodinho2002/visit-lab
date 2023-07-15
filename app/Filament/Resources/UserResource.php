@@ -49,7 +49,8 @@ class UserResource extends Resource
                     ->label("Senha")
                     ->required()
                     ->password()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                     ->dehydrated(fn ($state) => filled($state)),
                 Forms\Components\Radio::make('type')
                     ->label("Tipo de usuário")
                     ->options([
@@ -59,7 +60,8 @@ class UserResource extends Resource
                         'A' => 'Ver audições, relatórios, gerenciar visitas e visitantes',
                         'M' => 'gerenciar visitas e visitantes'
                     ])
-                    ->default('A'),
+                    ->default('A')
+                    ,
             ]);
     }
 

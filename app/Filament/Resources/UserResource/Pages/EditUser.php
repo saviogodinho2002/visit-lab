@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
+use Filament\Facades\Filament;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\Hash;
 
 class EditUser extends EditRecord
 {
@@ -15,5 +17,24 @@ class EditUser extends EditRecord
         return [
             Actions\DeleteAction::make(),
         ];
+    }
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data["password"] = Hash::make( $data["password"]);
+        if(Filament::auth()->user()->hasRole(["admin"])){
+            $data["laboratory_id"] = Filament::auth()->user()->laboratory_id;
+        }
+
+        return $data;
+    }
+    protected function afterSave(): void
+    {
+
+        if($this->data->type == "M"){
+            $this->record->syncRoles(["monitor"]);
+        }
+        else if($this->data->type == "P"){
+            $this->record->syncRoles(["professor"]);
+        }
     }
 }
