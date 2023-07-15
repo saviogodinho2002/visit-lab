@@ -17,12 +17,13 @@ class AuditResource extends Resource
 {
     protected static ?string $model = Audit::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static ?string $label = "Audições";
 
     public static function canCreate(): bool
     {
+
         return false;
     }
 

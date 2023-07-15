@@ -12,5 +12,8 @@ class Laboratory extends Model
     use HasFactory;
     protected $fillable=["name","teacher","classroom"];
 
+    public function visits(){
+        return $this->hasMany(Visit::class);
+    }
 
 }

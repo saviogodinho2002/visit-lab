@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\VisitResource\Pages;
 
+use App\Filament\Resources\VisitCharResource\Widgets\VisitWeekChart;
 use App\Filament\Resources\VisitResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -16,4 +17,5 @@ class ListVisits extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+
 }

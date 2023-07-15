@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LaboratoryResource\Pages;
 use App\Filament\Resources\LaboratoryResource\RelationManagers;
+use App\Filament\Resources\VisitCharResource\Widgets\VisitWeekChart;
 use App\Models\Laboratory;
 use Filament\Forms;
 use Filament\Resources\Form;

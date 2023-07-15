@@ -141,6 +141,7 @@ return [
         'register' => [
             Widgets\AccountWidget::class,
             //Widgets\FilamentInfoWidget::class,
+            //\App\Filament\Resources\VisitCharResource\Widgets\VisitWeekChart::class
         ],
     ],
 
