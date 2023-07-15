@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\VisitResource\Pages;
 use App\Filament\Resources\VisitResource\RelationManagers;
+use App\Models\Scopes\VisitScope;
 use App\Models\Visit;
 use Filament\Facades\Filament;
 use Filament\Forms;
@@ -38,7 +39,7 @@ class VisitResource extends Resource
     public static function table(Table $table): Table
 
     {
-        if(Filament::auth()->user()->type == "A"){
+        if(Filament::auth()->user()->hasRole(["professor","admin"])){
             $table = $table->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
@@ -70,10 +71,6 @@ class VisitResource extends Resource
                 Tables\Actions\DeleteAction::make(),
             ])
 
-            ->filters([
-                Tables\Filters\TrashedFilter::make()
-
-            ])
 
             ;
     }
@@ -96,10 +93,13 @@ class VisitResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
+
+            return parent::getEloquentQuery()
+                ->withoutGlobalScopes([
+                    SoftDeletingScope::class,
+                ])
+                ->withGlobalScope("visit_scope",new VisitScope);
+
     }
 
 

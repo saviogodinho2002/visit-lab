@@ -16,6 +16,9 @@ class CreateUser extends CreateRecord
     {
 
         $data["password"] = Hash::make( $data["password"]);
+        if(Filament::auth()->user()->hasRole(["admin"])){
+            $data["laboratory_id"] = Filament::auth()->user()->laboratory_id;
+        }
 
         return $data;
     }
@@ -24,10 +27,11 @@ class CreateUser extends CreateRecord
         // Runs after the form fields are saved to the database.
         //$this->record
         if($this->record->type == "M"){
-            $this->record->assignRole("monitor");
+            $this->record->syncRoles(["monitor"]);
         }else{
-            $this->record->assignRole("professor");
+            $this->record->syncRoles(["professor"]);
         }
+
     }
 
 }

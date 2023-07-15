@@ -19,7 +19,7 @@ class Visit extends Model
         return $this->belongsTo(Laboratory::class);
     }
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
 }

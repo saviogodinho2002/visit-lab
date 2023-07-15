@@ -18,9 +18,10 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string("register");
-            $table->enum("type",["A","M"]);
+
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

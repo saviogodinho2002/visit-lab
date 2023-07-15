@@ -25,13 +25,29 @@ class DatabaseSeeder extends Seeder
         );
 
          \App\Models\User::factory()->create([
-            'name' => 'Wendy Wynne',
+            'name' => 'Admin',
              'email' => 'admin@email.com',
              "password"=>Hash::make("wendy123"),
              "register"=>"2022008850",
-             "type"=>"M",
-             "laboratory_id"=>1
+
          ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Rennan Professor',
+            'email' => 'rennan@email.com',
+            "password"=>Hash::make("wendy123"),
+            "register"=>"2022008850",
+
+            "laboratory_id"=>1
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Wendy Wynne',
+            'email' => 'wendy@email.com',
+            "password"=>Hash::make("wendy123"),
+            "register"=>"2022008850",
+
+            "laboratory_id"=>1
+        ]);
+        $this->call(RolesSeed::class);
 
     }
 }
