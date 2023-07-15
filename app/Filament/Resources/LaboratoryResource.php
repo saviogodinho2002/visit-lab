@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryResource\RelationManagers\LaboratoriesRelationManager;
 use App\Filament\Resources\LaboratoryResource\Pages;
 use App\Filament\Resources\LaboratoryResource\RelationManagers;
 use App\Models\Laboratory;
@@ -19,18 +18,21 @@ class LaboratoryResource extends Resource
     protected static ?string $model = Laboratory::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
-    protected static ?string $label="Laboratórios";
+
+    protected static ?string $label = "Laboratório";
+
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->label("Nome")
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('teacher')
-                    ->label("Professor")
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('classroom')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -42,6 +44,7 @@ class LaboratoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('teacher'),
+                Tables\Columns\TextColumn::make('classroom'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -52,8 +55,6 @@ class LaboratoryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -63,8 +64,7 @@ class LaboratoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            LaboratoriesRelationManager::class
-
+            //
         ];
     }
 

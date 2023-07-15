@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\VisitResource\Pages;
 use App\Filament\Resources\VisitResource\RelationManagers;
 use App\Models\Visit;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -19,49 +20,62 @@ class VisitResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
-    protected static ?string $label="Visitas";
+    protected static ?string $label = "Visita";
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('visitor_id')
-                    ->relationship('visitor',"name")
-                    ->label("Visitante")
+                    ->relationship("visitor","name")
                     ->required(),
-                Forms\Components\Select::make('laboratory_id')
-                    ->relationship('laboratory',"name")
-                    ->label("Laboratório")
+                /*Forms\Components\TextInput::make('laboratory_id')
                     ->required(),
+                Forms\Components\TextInput::make('user_id')
+                    ->required(),*/
             ]);
     }
-
     public static function table(Table $table): Table
+
     {
+        if(Filament::auth()->user()->type == "A"){
+            $table = $table->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
+            ]) ->filters([
+                Tables\Filters\TrashedFilter::make(),
+            ]);
+        }else{
+            $table = $table->bulkActions([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ])
+                ;;
+        }
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('visitor.name')
-                    ->label("Visitante"),
+                    ->label("Nome"),
                 Tables\Columns\TextColumn::make('laboratory.name')
                     ->label("Laboratório"),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label("Monitor presente"),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label("Visita")
-                    ->dateTime()
+                    ->label("Data - hora")
                     ->timezone("America/Santarem")
-                    ->date("d/m/Y H:i")
-
-            ])
-            ->filters([
-                //
+                    ->dateTime(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+
                 Tables\Actions\DeleteAction::make(),
+            ])
+
+            ->filters([
+                Tables\Filters\TrashedFilter::make()
 
             ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
+
+            ;
     }
 
     public static function getRelations(): array
@@ -79,4 +93,14 @@ class VisitResource extends Resource
             'edit' => Pages\EditVisit::route('/{record}/edit'),
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
+    }
+
+
 }

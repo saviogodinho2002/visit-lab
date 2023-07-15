@@ -18,6 +18,7 @@ class VisitorResource extends Resource
     protected static ?string $model = Visitor::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+
     protected static ?string $label = "Visitante";
 
     public static function form(Form $form): Form
@@ -26,15 +27,12 @@ class VisitorResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->label("Nome")
                     ->maxLength(255),
                 Forms\Components\TextInput::make('register')
                     ->required()
-                    ->label("Matricula")
                     ->maxLength(255),
                 Forms\Components\TextInput::make('team')
                     ->required()
-                    ->label("Curso e Turma")
                     ->maxLength(255),
             ]);
     }

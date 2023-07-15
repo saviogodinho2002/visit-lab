@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        "register",
+        "type",
+        "laboratory_id"
     ];
 
     /**
@@ -42,4 +45,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function laboratory(){
+        return $this->belongsTo(Laboratory::class);
+    }
 }

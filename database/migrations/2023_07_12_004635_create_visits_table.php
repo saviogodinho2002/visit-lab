@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
+
             $table->foreignIdFor(\App\Models\Visitor::class)->constrained();
             $table->foreignIdFor(\App\Models\Laboratory::class)->constrained();
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
