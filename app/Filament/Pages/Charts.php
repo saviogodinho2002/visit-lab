@@ -25,4 +25,5 @@ class Charts extends Page
             VisitYearByMonthChart::class
         ];
     }
+
 }
