@@ -19,5 +19,15 @@ class CreateUser extends CreateRecord
 
         return $data;
     }
+    protected function afterCreate(): void
+    {//todo aplicar roles
+        // Runs after the form fields are saved to the database.
+        //$this->record
+        if($this->record->type == "M"){
+            $this->record->assignRole("monitor");
+        }else{
+            $this->record->assignRole("professor");
+        }
+    }
 
 }
