@@ -72,25 +72,11 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-        if(Filament::auth()->user()->hasRole(["professor","admin"])){
-            $table = $table->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
-            ]) ->filters([
-                Tables\Filters\TrashedFilter::make(),
-            ]);
-        }else{
-            $table = $table->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ])
-            ;;
-        }
+
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label("Nome"),
-
                 Tables\Columns\TextColumn::make('laboratory.name')
                     ->default("Sem laboratório")
                     ->label("Laboratório"),
@@ -102,11 +88,23 @@ class UserResource extends Resource
 
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->label("Deletar"),
+                Tables\Actions\RestoreAction::make()
+                    ->label("Restaurar"),
+                Tables\Actions\ForceDeleteAction::make()
+                    ->label("Purgar"),
 
             ])
+            ->bulkActions([
+                Tables\Actions\RestoreBulkAction::make(),
+            ])->filters(
 
-            ;
+                    Tables\Filters\TrashedFilter::make(),
+
+            );
+
+
 
     }
 

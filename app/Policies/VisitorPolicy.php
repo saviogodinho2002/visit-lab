@@ -50,7 +50,7 @@ class VisitorPolicy
      */
     public function delete(User $user, Visitor $visitor): bool
     {
-        return $user->hasRole(["professor"]);
+        return $user->hasRole(["professor"]) && $visitor->visits()->withTrashed()->count()  == 0;
 
     }
 

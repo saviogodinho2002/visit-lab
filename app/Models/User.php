@@ -60,6 +60,9 @@ class User extends Authenticatable implements FilamentUser,Auditable
     public function laboratory(){
         return $this->belongsTo(Laboratory::class);
     }
+    public function visits(){
+        return $this->hasMany(Visit::class);
+    }
 
 
 

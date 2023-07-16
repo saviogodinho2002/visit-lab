@@ -35,28 +35,18 @@ class VisitResource extends Resource
                     ->searchable()
                     ->label("Visitante")
                     ->required(),
-                /*Forms\Components\TextInput::make('laboratory_id')
-                    ->required(),
-                Forms\Components\TextInput::make('user_id')
-                    ->required(),*/
+
             ]);
     }
     public static function table(Table $table): Table
 
     {
         if(Filament::auth()->user()->hasRole(["professor","admin"])){
-            $table = $table->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
-            ]) ->filters([
+            $table = $table->filters([
                 Tables\Filters\TrashedFilter::make(),
             ]);
         }else{
-            $table = $table->bulkActions([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ])
-                ;;
+            $table = $table->filters([]);;
         }
         return $table
             ->columns([
@@ -73,9 +63,17 @@ class VisitResource extends Resource
             ])
             ->actions([
 
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->label("Deletar"),
+                Tables\Actions\RestoreAction::make()
+                    ->label("Restaurar"),
+                Tables\Actions\ForceDeleteAction::make()
+                    ->label("Purgar"),
             ])
-
+            ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
+            ])
 
             ;
     }
@@ -100,9 +98,12 @@ class VisitResource extends Resource
     {
 
             return parent::getEloquentQuery()
-                ->withoutGlobalScopes([
-                    SoftDeletingScope::class,
-                ])
+                ->withoutGlobalScopes(
+                    Filament::auth()->user()->hasRole(["professor","admin"])?
+                    [
+                        SoftDeletingScope::class,
+                    ]:[]
+                )
                 ->withGlobalScope("visit_scope",new VisitScope);
 
     }

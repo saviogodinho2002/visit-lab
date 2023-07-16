@@ -49,7 +49,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $user->hasRole(["admin","professor"]);
+        return ($user->hasRole(["admin","professor"]) && $model->visits()->withTrashed()->count() == 0);
 
 
     }
@@ -69,8 +69,7 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model): bool
     {
-        return $user->hasRole(["admin","professor"]);
-
+        return ($user->hasRole(["admin","professor"]) && $model->visits()->withTrashed()->count() == 0);
 
     }
 

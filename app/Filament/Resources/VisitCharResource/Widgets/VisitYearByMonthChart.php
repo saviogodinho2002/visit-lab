@@ -25,9 +25,7 @@ class VisitYearByMonthChart extends LineChartWidget
             )
             ->perMonth()
 
-            ->count()
-
-        ;
+            ->count();
 
         return [
             'datasets' => [

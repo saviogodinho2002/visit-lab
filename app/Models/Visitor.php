@@ -13,4 +13,7 @@ class Visitor extends Model implements Auditable
 
     protected $fillable = ["name","register","team"];
 
+    public function visits(){
+        return $this->hasMany(Visit::class);
+    }
 }
