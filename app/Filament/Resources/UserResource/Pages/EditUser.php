@@ -30,10 +30,10 @@ class EditUser extends EditRecord
     protected function afterSave(): void
     {
 
-        if($this->data->type == "M"){
+        if($this->data["type"] == "M"){
             $this->record->syncRoles(["monitor"]);
         }
-        else if($this->data->type == "P"){
+        elseif($this->data["type"] == "P"){
             $this->record->syncRoles(["professor"]);
         }
     }

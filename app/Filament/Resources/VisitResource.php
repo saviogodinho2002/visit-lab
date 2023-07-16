@@ -7,6 +7,7 @@ use App\Filament\Resources\VisitResource\Pages;
 use App\Filament\Resources\VisitResource\RelationManagers;
 use App\Models\Scopes\VisitScope;
 use App\Models\Visit;
+use App\Models\Visitor;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -15,6 +16,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\DB;
 
 class VisitResource extends Resource
 {
@@ -29,7 +31,8 @@ class VisitResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('visitor_id')
-                    ->relationship("visitor","name")
+                    ->relationship("visitor","register")
+                    ->searchable()
                     ->label("Visitante")
                     ->required(),
                 /*Forms\Components\TextInput::make('laboratory_id')

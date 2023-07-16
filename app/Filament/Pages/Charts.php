@@ -26,4 +26,9 @@ class Charts extends Page
         ];
     }
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return (auth()->user()->laboratory_id != null) && auth()->user()->hasRole(["professor","monitor"]) ;
+    }
+
 }

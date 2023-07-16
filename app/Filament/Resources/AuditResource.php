@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AuditResource\Pages;
 use App\Filament\Resources\AuditResource\RelationManagers;
 use App\Models\Audit;
+use App\Models\Scopes\AuditScope;
+use App\Models\Scopes\UserScope;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -19,7 +21,7 @@ class AuditResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static ?string $label = "Audições";
+    protected static ?string $label = "Auditoria";
 
     public static function canCreate(): bool
     {
@@ -58,5 +60,18 @@ class AuditResource extends Resource
         return [
             'index' => Pages\ManageAudits::route('/'),
         ];
+    }
+    public static function getEloquentQuery(): Builder
+    {
+
+        return parent::getEloquentQuery()
+
+            ->withGlobalScope("userscope",
+                new AuditScope
+            )
+            ->orderByDesc("created_at")
+            //->where("laboratory_id","=",1)
+            ;
+
     }
 }
