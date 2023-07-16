@@ -20,8 +20,8 @@ class EditUser extends EditRecord
     }
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $data["password"] = Hash::make( $data["password"]);
-        if(Filament::auth()->user()->hasRole(["admin"])){
+
+        if(!Filament::auth()->user()->hasRole(["admin"])){
             $data["laboratory_id"] = Filament::auth()->user()->laboratory_id;
         }
 

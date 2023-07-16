@@ -21,7 +21,6 @@ class RolesSeed extends Seeder
 
         $users = User::all();
         $users[0]->assignRole("admin");
-        $users[1]->assignRole("professor");
-        $users[2]->assignRole("monitor");
+
     }
 }

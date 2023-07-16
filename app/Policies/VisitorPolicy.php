@@ -41,7 +41,7 @@ class VisitorPolicy
      */
     public function update(User $user, Visitor $visitor): bool
     {
-        return $user->hasRole(["monitor","professor"]);
+        return $user->hasRole(["professor"]);
 
     }
 
@@ -50,7 +50,7 @@ class VisitorPolicy
      */
     public function delete(User $user, Visitor $visitor): bool
     {
-        return $user->hasRole(["monitor","professor"]);
+        return $user->hasRole(["professor"]);
 
     }
 
@@ -59,7 +59,7 @@ class VisitorPolicy
      */
     public function restore(User $user, Visitor $visitor): bool
     {
-        return $user->hasRole(["monitor","professor"]);
+        return $user->hasRole(["professor"]);
 
     }
 
@@ -68,7 +68,7 @@ class VisitorPolicy
      */
     public function forceDelete(User $user, Visitor $visitor): bool
     {
-        return $user->hasRole(["monitor","professor"]);
+        return $user->hasRole(["professor"]);
 
     }
 }

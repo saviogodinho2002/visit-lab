@@ -61,6 +61,7 @@ class VisitorResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
                 //Tables\Actions\DeleteBulkAction::make(),
@@ -82,4 +83,9 @@ class VisitorResource extends Resource
             'edit' => Pages\EditVisitor::route('/{record}/edit'),
         ];
     }
+    public static function beforeDelete(): void
+    {
+       dd("teste");
+    }
+
 }

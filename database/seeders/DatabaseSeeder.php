@@ -16,13 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        Laboratory::create(
-          [
-              "name"=>"Laboratório de Algoritmos",
-              "teacher"=>"Rennan",
-              "classroom"=>"37"
-          ]
-        );
 
          \App\Models\User::factory()->create([
             'name' => 'Admin',
@@ -31,22 +24,7 @@ class DatabaseSeeder extends Seeder
              "register"=>"2022008850",
 
          ]);
-        \App\Models\User::factory()->create([
-            'name' => 'Rennan Professor',
-            'email' => 'rennan@email.com',
-            "password"=>Hash::make("wendy123"),
-            "register"=>"2022008850",
 
-            "laboratory_id"=>1
-        ]);
-        \App\Models\User::factory()->create([
-            'name' => 'Wendy Wynne',
-            'email' => 'wendy@email.com',
-            "password"=>Hash::make("wendy123"),
-            "register"=>"2022008850",
-
-            "laboratory_id"=>1
-        ]);
         $this->call(RolesSeed::class);
 
     }
