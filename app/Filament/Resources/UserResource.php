@@ -59,13 +59,13 @@ class UserResource extends Resource
                 Forms\Components\Radio::make('type')
                     ->label("Tipo de usuário")
                     ->options([
-                        'A' => 'Professor',
+                        'P' => 'Professor',
                         'M' => 'Monitor',
                     ]) ->descriptions([
-                        'A' => 'Ver audições, relatórios, gerenciar visitas e visitantes',
+                        'P' => 'Ver audições, relatórios, gerenciar visitas e visitantes',
                         'M' => 'gerenciar visitas e visitantes'
                     ])
-                    ->default("A")
+                    ->default("P")
                     ,
             ]);
     }

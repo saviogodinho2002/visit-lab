@@ -29,10 +29,10 @@ class CreateUser extends CreateRecord
         //$this->record
 
         if($this->data["type"] == "M"){
-            $this->record->syncRoles(["monitor"]);
+            $this->record->assignRole("monitor");
         }
         elseif($this->data["type"] == "P"){
-            $this->record->syncRoles(["professor"]);
+            $this->record->assignRole("professor");
         }
     }
 

@@ -60,10 +60,7 @@ class User extends Authenticatable implements FilamentUser,Auditable
     public function laboratory(){
         return $this->belongsTo(Laboratory::class);
     }
-    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Role::class,"model_has_roles","model_id");
-    }
+
 
 
     public function canAccessFilament(): bool
