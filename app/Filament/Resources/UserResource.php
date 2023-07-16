@@ -96,6 +96,8 @@ class UserResource extends Resource
                     ->label("Laboratório"),
                 Tables\Columns\TextColumn::make('email')
                     ->label("Email"),
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->label("Função"),
             ])
 
             ->actions([

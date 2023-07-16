@@ -14,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser,Auditable
@@ -58,6 +59,10 @@ class User extends Authenticatable implements FilamentUser,Auditable
     ];
     public function laboratory(){
         return $this->belongsTo(Laboratory::class);
+    }
+    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Role::class,"model_has_roles","model_id");
     }
 
 
