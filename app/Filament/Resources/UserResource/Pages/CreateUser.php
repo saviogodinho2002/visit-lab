@@ -27,12 +27,13 @@ class CreateUser extends CreateRecord
     {//todo aplicar roles
         // Runs after the form fields are saved to the database.
         //$this->record
-        if($this->record->type == "M"){
+
+        if($this->data["type"] == "M"){
             $this->record->syncRoles(["monitor"]);
-        }else{
+        }
+        elseif($this->data["type"] == "P"){
             $this->record->syncRoles(["professor"]);
         }
-
     }
 
 

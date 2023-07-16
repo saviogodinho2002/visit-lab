@@ -28,12 +28,15 @@ class LaboratoryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label("Nome")
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('teacher')
+                    ->label("Professor responsável")
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('classroom')
+                    ->label("Sala")
                     ->required()
                     ->maxLength(255),
             ]);

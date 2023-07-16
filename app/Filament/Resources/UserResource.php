@@ -75,7 +75,7 @@ class UserResource extends Resource
         if(Filament::auth()->user()->hasRole(["professor","admin"])){
             $table = $table->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-             //   Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
             ]) ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -92,6 +92,7 @@ class UserResource extends Resource
                     ->label("Nome"),
 
                 Tables\Columns\TextColumn::make('laboratory.name')
+                    ->default("Sem laboratório")
                     ->label("Laboratório"),
                 Tables\Columns\TextColumn::make('email')
                     ->label("Email"),
