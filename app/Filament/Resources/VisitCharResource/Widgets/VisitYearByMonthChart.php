@@ -28,7 +28,7 @@ class VisitYearByMonthChart extends LineChartWidget
             ->count()
 
         ;
-       // dd($laboratorys);
+
         return [
             'datasets' => [
                 [
