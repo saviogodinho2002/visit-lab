@@ -4,6 +4,7 @@ namespace App\Filament\Resources\VisitCharResource\Widgets;
 
 use App\Models\Laboratory;
 use App\Models\Visit;
+use App\Utils\Util;
 use Faker\Core\DateTime;
 use Filament\Facades\Filament;
 use Filament\Widgets\LineChartWidget;
@@ -42,6 +43,7 @@ class VisitWeekChart extends LineChartWidget
                     //'title' => 'Visitas',
                     'data' => $laboratorys->map(fn (TrendValue $value) => $value->aggregate),
                     "borderColor"=> 'rgb(75, 192, 192)',
+                    "backgroundColor" => Util::$collors,
                     "tension"=> 0.1
                 ],
             ],
