@@ -30,7 +30,7 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('laboratory_id')
-                    ->relationship("laboratory","name")
+                    ->relationship("laboratory", "name")
                     ->label("Laboratório")
                     ->required()
                     ->hidden(Filament::auth()->user()->hasRole("professor")),
@@ -49,24 +49,24 @@ class UserResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
                     ->label("Senha")
-                    ->required(fn(string $context):bool => $context =="create")
+                    ->required(fn(string $context): bool => $context == "create")
                     ->password()
                     ->maxLength(255)
                     ->autocomplete("off")
-                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                   ->dehydrated(fn ($state) => filled($state))
+                    ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                    ->dehydrated(fn($state) => filled($state))
                 ,
                 Forms\Components\Radio::make('type')
                     ->label("Tipo de usuário")
                     ->options([
                         'P' => 'Professor',
                         'M' => 'Monitor',
-                    ]) ->descriptions([
+                    ])->descriptions([
                         'P' => 'Ver audições, relatórios, gerenciar visitas e visitantes',
                         'M' => 'gerenciar visitas e visitantes'
                     ])
                     ->default("P")
-                    ,
+                ,
             ]);
     }
 
@@ -85,7 +85,6 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('roles.name')
                     ->label("Função"),
             ])
-
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
@@ -100,10 +99,11 @@ class UserResource extends Resource
                 Tables\Actions\RestoreBulkAction::make(),
             ])->filters(
 
+                [
                     Tables\Filters\TrashedFilter::make(),
+                ]
 
             );
-
 
 
     }
@@ -127,16 +127,15 @@ class UserResource extends Resource
     public static function getEloquentQuery(): Builder
     {
 
-            return parent::getEloquentQuery()
-                ->withoutGlobalScopes([
-                    SoftDeletingScope::class,
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
 
-                ])
-                ->withGlobalScope("userscope",
-                    new UserScope
-                )
-                //->where("laboratory_id","=",1)
-                ;
+            ])
+            ->withGlobalScope("userscope",
+                new UserScope
+            )//->where("laboratory_id","=",1)
+            ;
 
     }
 
