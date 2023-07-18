@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\VisitCharResource\Widgets;
+namespace App\Filament\Resources\VisitChartResource\Widgets;
 
 use App\Models\Laboratory;
 use App\Models\Visit;
@@ -25,7 +25,7 @@ class VisitWeekChart extends LineChartWidget
         $dateInitLastWeek =  new \DateTime();
         $dateInitLastWeek->setTimestamp($diff);
         $dateInitLastWeek->format("d-m-Y-H-i-s");
-        $laboratorys = Trend::query(
+        $visits = Trend::query(
             Visit::query()
                 ->where("laboratory_id","=",Filament::auth()->user()->laboratory_id)
             )
@@ -41,13 +41,13 @@ class VisitWeekChart extends LineChartWidget
                 [
                     'label' => 'Visitas em '.Filament::auth()->user()->laboratory->name,
                     //'title' => 'Visitas',
-                    'data' => $laboratorys->map(fn (TrendValue $value) => $value->aggregate),
+                    'data' => $visits->map(fn (TrendValue $value) => $value->aggregate),
                     "borderColor"=> 'rgb(75, 192, 192)',
                     "backgroundColor" => Util::$collors,
                     "tension"=> 0.1
                 ],
             ],
-            'labels' => $laboratorys->map(fn (TrendValue $value) => $value->date),
+            'labels' => $visits->map(fn (TrendValue $value) => $value->date),
         ];
     }
 }

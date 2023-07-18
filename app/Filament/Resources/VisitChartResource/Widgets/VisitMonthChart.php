@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\VisitCharResource\Widgets;
+namespace App\Filament\Resources\VisitChartResource\Widgets;
 
 use App\Models\Visit;
 use App\Utils\Util;
@@ -9,37 +9,38 @@ use Filament\Widgets\LineChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 
-class VisitYearByMonthChart extends LineChartWidget
+class VisitMonthChart extends LineChartWidget
 {
-    protected static ?string $heading = 'Visitas esse ano';
+    protected static ?string $heading = 'Visitas esse mês';
 
     protected function getData(): array
     {
-        $visits = Trend::query(
+        ;
+
+        $laboratorys = Trend::query(
             Visit::query()
                 ->where("laboratory_id","=",Filament::auth()->user()->laboratory_id)
-            )
+        )
             ->between(
-                start: now()->startOfYear(),
-                end: now()->endOfYear(),
+                start: now()->startOfMonth(),
+                end: now()->endOfMonth(),
             )
-            ->perMonth()
-
+            ->perDay()
             ->count();
-
+        //dd($laboratorys);
         return [
             'datasets' => [
                 [
                     'label' => 'Visitas em '.Filament::auth()->user()->laboratory->name,
                     //'title' => 'Visitas',
-                    'data' => $visits->map(fn (TrendValue $value) => $value->aggregate),
+                    'data' => $laboratorys->map(fn (TrendValue $value) => $value->aggregate),
                     "borderColor"=> 'rgb(75, 192, 192)',
                     "backgroundColor" => Util::$collors,
 
                     "tension"=> 0.1
                 ],
             ],
-            'labels' => $visits->map(fn (TrendValue $value) => $value->date),
+            'labels' => $laboratorys->map(fn (TrendValue $value) => $value->date),
         ];
     }
 }

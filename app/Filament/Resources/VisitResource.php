@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\VisitCharResource\Widgets\VisitWeekChart;
+use App\Filament\Resources\VisitChartResource\Widgets\VisitWeekChart;
 use App\Filament\Resources\VisitResource\Pages;
 use App\Filament\Resources\VisitResource\RelationManagers;
 use App\Models\Scopes\VisitScope;
@@ -107,12 +107,8 @@ class VisitResource extends Resource
                 ->withGlobalScope("visit_scope",new VisitScope);
 
     }
-    public static function getWidgets(): array
-    {
-        return [
-           VisitWeekChart::class,
-        ];
-    }
+
+
 
 
 

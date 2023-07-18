@@ -14,7 +14,6 @@ class ChartGeral extends Page
     protected static ?string $navigationIcon = 'heroicon-o-chart-pie';
 
     protected static string $view = 'filament.pages.chart-geral';
-
     protected static ?string $navigationLabel = "Gráficos Gerais";
 
     protected ?string $heading = "Gráficos Gerais";
