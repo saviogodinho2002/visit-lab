@@ -34,6 +34,7 @@ class VisitResource extends Resource
                     ->relationship("visitor","register")
                     ->searchable()
                     ->label("Visitante")
+                    ->placeholder("Busque pela matrícula/siape")
                     ->required(),
 
             ]);
