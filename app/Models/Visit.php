@@ -14,7 +14,7 @@ class Visit extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
 
     public $name = "Visita";
-    protected $fillable = ["visitor_id","laboratory_id","user_id"];
+    protected $fillable = ["visitor_id","laboratory_id","user_id","departure_time"];
 
     public function visitor(){
         return $this->belongsTo(Visitor::class);

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Visitor::class)->constrained();
             $table->foreignIdFor(\App\Models\Laboratory::class)->constrained();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
-
+            $table->dateTime("departure_time")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

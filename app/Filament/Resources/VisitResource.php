@@ -58,12 +58,18 @@ class VisitResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->label("Monitor presente"),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label("Data - hora")
+                    ->label("Hora de entrada")
+                    ->dateTime("d/m/Y H:i","America/Santarem")
+                ,
+                Tables\Columns\TextColumn::make('departure_time')
+                    ->label("Hora de saída")
                     ->dateTime("d/m/Y H:i","America/Santarem")
                 ,
             ])
             ->actions([
-
+                Tables\Actions\Action::make('Sair')
+                    ->url(fn (Visit $record): string => route('visit.departure', $record))
+                    ->hidden(fn (Visit $record) => $record->departure_time != null),
                 Tables\Actions\DeleteAction::make()
                     ->label("Deletar"),
                 Tables\Actions\RestoreAction::make()

@@ -51,6 +51,11 @@ class VisitPolicy
         return $user->hasRole(["monitor","professor"]);
 
     }
+    public function out(User $user, Visit $visit): bool
+    {
+        return $user->hasRole(["monitor","professor"]) && $visit->departure_time == null;
+
+    }
 
     /**
      * Determine whether the user can restore the model.

@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route("filament.auth.login");
 });
+Route::get("visit/departure/{visit}",[\App\Http\Controllers\VisitController::class,"departure"])
+    ->name("visit.departure")
+    //->can("out","visit")
+;
